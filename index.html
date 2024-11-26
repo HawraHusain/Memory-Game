@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script defer src="./app.js"></script>
+    <title>Memory Game</title>
+</head>
+<body>
+  <!-- Adding model for the begining of the game-->
+  <dialog class="name-entry-dialog">
+        <form>
+        <h2 class="dialog-title">Welcome to the Memory Game</h2>
+        <h3>Please insert your name</h3>
+        <input type="text" name="player" id="player" maxlength="15" required>
+        <div class="btn-container">
+        <button type="button" class="submit-names-btn">Next</button>
+        </div> 
+    </form>
+    </dialog>
+    <dialog class="select-category-dialog">
+        <form>
+        <h2 class="category-dialog-title"></h2>
+        <h3>Please select a category</h3>
+        <div class="category-btn-container">
+            <button type="button" class="category-btn">Animals
+                <img src="images/animals.png" alt="animals image" />
+            </button>
+            <button type="button" class="category-btn">Flags
+                <img src="images/flag.png" alt="flag image"/>
+            </button>
+            <button type="button" class="category-btn">Periodic Table
+                <img src="images/periodic-table.png" alt="Periodic table image"/>
+            </button>
+        </div>
+    </form>
+    </dialog>
+    <dialog class="select-level-dialog">
+        <form>
+        <h3 class="level-message"></h3>
+        <div class="level-btn-container">
+            <button type="button" class="level-btn">4x4
+                <img src="" alt="easy level image" />
+            </button>
+            <button type="button" class="level-btn">6x6
+                <img src="" alt="medium level image" />
+            </button>
+            <button type="button" class="level-btn">8x8
+                <img src="" alt="hard level image" />
+            </button>
+        </div>
+        
+    </form>
+    <div class="backbtn-container">
+        <button type="button" class="back-btn">Back</button>
+    </div>
+    </dialog>
+    <dialog class="game-rule-dialog">
+        <form>
+        <h3 class="rule-title"></h3>
+        <div class="level-btn-container">
+            <ul>
+                <li>Click "Start Game" to begin.</li>
+                <li>You'll have 3 seconds to view the cards before they flip over.</li>
+                <li>The timer is set for 1 minute; if time runs out, you lose.</li>
+                <li>Making more than 6 mismatches will result in a loss.</li>
+            </ul>
+        </div>
+        
+    </form>
+    <div class="backbtn-container">
+        <button type="button" class="back-btn">Start Game</button>
+    </div>
+    </dialog>
+</body>
+</html>

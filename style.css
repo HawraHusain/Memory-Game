@@ -1,0 +1,199 @@
+* {
+    box-sizing: border-box;
+}
+
+html {
+    height: 100%;
+    position: relative;
+}
+
+body {
+    background-color: #f4f4f4;
+    font-family: 'Roboto', sans-serif;
+}
+:root{
+    /* colors */
+    --blue-color : #789DBC;
+    --darkblue-color: #374259;
+    --pink-color: #FFE3E3;
+    --darkpink-color: #C1A3A3;
+    --white-color: #FEF9F2;
+    --lightgrey-color: #EEEEEE;
+    --green-color: #C9E9D2;
+    --darkgreen-color:#7D9D9C;
+}
+/* Dialog position and border */
+dialog{
+    border: none;
+    border-radius: 30px;
+    position: relative;
+    padding: 0;
+}
+/* For backdrop shadow */
+dialog::backdrop {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+/* Dialog color*/
+.name-entry-dialog , .select-category-dialog{
+    justify-content: center;
+    background-color: var(--lightgrey-color);
+}
+/* Form in the dialog  */
+.name-entry-dialog form , .select-category-dialog form{
+    display: grid;
+    gap: 15px;
+    justify-content: center;
+    align-items: center;
+    padding: 50px 70px ;
+}
+/* Dialog title */
+.dialog-title ,.category-dialog-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color:var(--darkblue-color);
+    text-align: center;
+}
+/* h3  */
+h3 {
+    font-size: 1.2rem;
+    color: var(--blue-color);
+    text-align: center;
+}
+/* input of the form */
+input {
+    padding: 10px;
+    border: 2px solid --blue-color;
+    border-radius: 5px;
+    font-size: 1rem;
+    color: var(--darkblue-color);
+    font-weight: 800;
+}
+.btn-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.submit-names-btn {
+    padding: 15px 20px;
+    width:40%;
+    background-color: var(--darkgreen-color);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.submit-names-btn:hover {
+    background-color: rgb(0, 82, 0);
+}
+.category-btn {
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 800;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+     gap: 10px;/* gap between image and text */
+    width: 200px;
+    height: 200px;
+    justify-content: center;
+}
+.category-btn-container :hover , .level-btn :hover{
+    transform: scale(1.05);
+    transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out;
+}
+.category-btn-container{
+    gap:20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.category-btn img {
+    width: 50px;
+    height: 50px;
+    margin-left: 10px;
+}
+.select-level-dialog {
+    gap: 15px;
+    justify-content: center;
+    align-items: center;
+    padding: 15rem  ;
+}
+.select-level-dialog.animals {
+    background: url('images/CategoryBackground/animals-bg.png') no-repeat center center;
+    background-size: cover;
+}
+
+.select-level-dialog.flags {
+    background: url('images/CategoryBackground/flags-bg.png') no-repeat center center;
+    background-size: cover;
+}
+
+.select-level-dialog.periodic-table {
+    background: url('images/CategoryBackground/periodic-table-bg.png') no-repeat center center;
+    background-size: cover;
+}
+.level-btn-container{
+    gap:20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.level-btn img {
+    width: 120px;
+    height: 120px;
+}
+.level-btn{
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 800;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;/* gap between image and text */
+    justify-content: center;
+    background: none;
+}
+.backbtn-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.back-btn{
+justify-content: center;
+align-items: center;
+display: flex;
+font-size: 1rem;
+font-weight: 500;
+color: var(--white-color);
+background-color: var(--darkgreen-color);
+width: 100px;
+height: 50px;
+}
+/* Responsive styling */
+/* Mobile */
+@media screen and (max-width: 640px) {
+    input {
+        width: 100%;
+    }
+    .select-level-dialog {
+padding: 10rem;
+    }
+}
+/* Tablet */
+@media screen and (max-width: 940px) {
+    input {
+        width: 100%;
+    }
+}
+/* Desktop */
+@media screen and (max-width: 1440px) {
+    input {
+        width: 100%;
+    }
+}
