@@ -8,21 +8,30 @@
     <title>Memory Game</title>
 </head>
 <body>
+    <header>
+    <div class="game-info">
+        <span class="timer"></span>
+        <div class="game-info-container">
+        <span class="wrong-matches"></span> 
+        <span class="correct-matches"></span>
+    </div>
+    </div>
+</header>
   <!-- Adding model for the begining of the game-->
-  <dialog class="name-entry-dialog">
+    <dialog class="name-entry-dialog">
         <form>
         <h2 class="dialog-title">Welcome to the Memory Game</h2>
-        <h3>Please insert your name</h3>
-        <input type="text" name="player" id="player" maxlength="15" required>
+        <input type="text" name="player" id="player" placeholder="Enter your name"    class="brutalist-input smooth-type"
+        maxlength="15" required>
         <div class="btn-container">
-        <button type="button" class="submit-names-btn">Next</button>
+        <button type="button" class="submit-names-btn">Let's Play !</button>
         </div> 
-    </form>
+        </form>
     </dialog>
+
     <dialog class="select-category-dialog">
         <form>
         <h2 class="category-dialog-title"></h2>
-        <h3>Please select a category</h3>
         <div class="category-btn-container">
             <button type="button" class="category-btn">Animals
                 <img src="images/animals.png" alt="animals image" />
@@ -61,10 +70,10 @@
         <h3 class="rule-title"></h3>
         <div class="level-btn-container">
             <ul>
-                <li>Click "Start Game" to begin.</li>
-                <li>You'll have 3 seconds to view the cards before they flip over.</li>
-                <li>The timer is set for 1 minute; if time runs out, you lose.</li>
-                <li>Making more than 6 mismatches will result in a loss.</li>
+                <li class="li-text">Click "Start Game" to begin.</li>
+                <li class="li-text">You'll have 3 seconds to view the cards before they flip over.</li>
+                <li class="li-text">The timer is set for 1 minute; if time runs out, you lose.</li>
+                <li class="li-text">Making more than 6 mismatches will result in a loss.</li>
             </ul>
         </div>
         
@@ -73,5 +82,13 @@
         <button type="button" class="back-btn">Start Game</button>
     </div>
     </dialog>
+
+    <div class="game-board-container">
+        <div class="game-board"></div>
+    </div>
+    
+   
+    <div class="game-board"></div>
+
 </body>
 </html>

@@ -2,14 +2,13 @@
     box-sizing: border-box;
 }
 
-html {
-    height: 100%;
-    position: relative;
-}
-
 body {
-    background-color: #f4f4f4;
+    background-image: url(images/Background.jpg);
+    background-size: cover;
+    background-position: 50% 50%;
     font-family: 'Roboto', sans-serif;
+    height: 100%;
+    margin: 0;
 }
 :root{
     /* colors */
@@ -24,10 +23,23 @@ body {
 }
 /* Dialog position and border */
 dialog{
-    border: none;
+    border: 5px solid var(--blue-color);
     border-radius: 30px;
     position: relative;
-    padding: 0;
+    justify-content: center;
+    padding: 10em;
+    animation: changeBorderColor 6s infinite;
+
+}
+/* boarder color changing */
+@keyframes changeBorderColor {
+    0% { border-color: var(--blue-color); }
+    16% { border-color: var(--darkblue-color); }
+    33% { border-color: var(--pink-color); }
+    50% { border-color: var(--darkpink-color); }
+    66% { border-color: var(--green-color); }
+    83% { border-color: var(--darkgreen-color); }
+    100% { border-color: var(--blue-color); }
 }
 /* For backdrop shadow */
 dialog::backdrop {
@@ -55,8 +67,8 @@ dialog::backdrop {
 }
 /* h3  */
 h3 {
-    font-size: 1.2rem;
-    color: var(--blue-color);
+    font-size: 1.5rem;
+    color: var(--darkblue-color);
     text-align: center;
 }
 /* input of the form */
@@ -73,20 +85,34 @@ input {
     justify-content: center;
     align-items: center;
 }
-.submit-names-btn {
-    padding: 15px 20px;
-    width:40%;
-    background-color: var(--darkgreen-color);
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    font-size: 1rem;
-    cursor: pointer;
-}
+/* start of Change Background for button of submit name  */
 
-.submit-names-btn:hover {
-    background-color: rgb(0, 82, 0);
+.submit-names-btn {
+    background-color: var(--blue-color);
+    color: #888;
+    border: none;
+    padding: 15px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    animation: changeBackground 6s infinite;
+    margin-top: 30px;
+    font-weight: 800;
 }
+/* change background colors */
+@keyframes changeBackground {
+    0% { background-color: var(--blue-color); }
+    16% { background-color: var(--darkblue-color); }
+    33% { background-color: var(--pink-color); }
+    50% { background-color: var(--darkpink-color); }
+    66% { background-color: var(--green-color); }
+    83% { background-color: var(--darkgreen-color); }
+    100% { background-color: var(--blue-color); }
+}
+/* End of Change Background for button of submit name  */
+
+/* Start of category button and card  */
+
 .category-btn {
     border: none;
     border-radius: 5px;
@@ -96,10 +122,12 @@ input {
     display: flex;
     flex-direction: column;
     align-items: center;
-     gap: 10px;/* gap between image and text */
+    gap: 10px;/* gap between image and text */
     width: 200px;
     height: 200px;
     justify-content: center;
+    color: var(--darkblue-color);
+    background-color: var(--darkpink-color);
 }
 .category-btn-container :hover , .level-btn :hover{
     transform: scale(1.05);
@@ -116,6 +144,8 @@ input {
     height: 50px;
     margin-left: 10px;
 }
+/* End of category button and card  */
+
 .select-level-dialog {
     gap: 15px;
     justify-content: center;
@@ -142,6 +172,10 @@ input {
     justify-content: center;
     align-items: center;
 }
+.li-text{
+    font-size: 20px;
+    color: slategray;
+}
 .level-btn img {
     width: 120px;
     height: 120px;
@@ -163,6 +197,7 @@ input {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-bottom: 20px;
 }
 .back-btn{
 justify-content: center;
@@ -197,3 +232,296 @@ padding: 10rem;
         width: 100%;
     }
 }
+
+
+
+.dialog-title, .rule-title {
+    text-align: center;
+}
+
+.game-board-container {
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    margin: 50px; 
+}
+
+.game-board {
+    display: grid;
+    gap: 10px;
+}
+
+.game-board.grid-4 {
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+}
+
+.game-board.grid-6 {
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+}
+
+.game-board.grid-8 {
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: repeat(8, 1fr);
+}
+.card {
+    width: 100px; 
+    height: 100px; 
+    position: relative;
+    perspective: 1000px; 
+    cursor: pointer;
+    transform-style: preserve-3d;
+    transition: transform 0.5s ease-in-out;
+}
+
+.card-front,
+.card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+}
+
+.card-front {
+    background-size: contain; 
+    background-position: center; 
+    background-repeat: no-repeat; 
+    transform: rotateY(180deg);
+}
+
+.card-back {
+    background-color: var(--category-color, var(--darkpink-color)); /* Default if not set */
+    transform: rotateY(0deg);
+    font-size: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--darkblue-color);
+    border-radius: 25px;
+}
+
+.card.flipped .card-front {
+    transform: rotateY(0);
+}
+
+.card.flipped .card-back {
+    transform: rotateY(180deg);
+}
+
+.game-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;  
+    margin-top: 20px;
+    width: auto;
+    padding: 10px;
+}
+
+.timer {
+    text-align: center;
+    font-size: 25px;
+    font-weight: bold;
+    display: none; 
+    padding: 10px;
+    color: var(--darkblue-color);
+}
+.game-info-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    
+}
+.wrong-matches{
+    font-weight: bold;
+    color: rgb(191, 88, 88);
+    font-size: 20px;
+}
+.correct-matches{
+    font-weight: bold;
+    color: var(--darkgreen-color);
+    font-size: 20px; 
+}
+/* Start of-> End game modal */
+.end-game-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    border: 5px solid #ccc;
+    border-radius: 10px;
+    text-align: center;
+    padding: 10rem  ;
+    animation: changeBorderColor 6s infinite;
+
+}
+
+.end-game-modal h2 {
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    color: black;
+}
+
+.end-game-modal button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: white;
+    font-weight: 500;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    animation: changeBackground 6s infinite;
+
+}
+/* End of -> End game modal */
+
+  /*Start of -> input text css for first modal  */
+  /* Used : https://uiverse.io/0xnihilism/calm-baboon-55 */
+  .brutalist-input {
+    width: 100%;
+    padding: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #000;
+    background-color: #fff;
+    border: 4px solid var(--darkblue-color);
+    position: relative;
+    overflow: hidden;
+    border-radius: 0;
+    outline: none;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow: 5px 5px 0 #000, 10px 10px 0 var(--darkgreen-color);
+  }
+  
+  @keyframes glitch {
+    0% {
+      transform: translate(0);
+    }
+    20% {
+      transform: translate(-2px, 2px);
+    }
+    40% {
+      transform: translate(-2px, -2px);
+    }
+    60% {
+      transform: translate(2px, 2px);
+    }
+    80% {
+      transform: translate(2px, -2px);
+    }
+    100% {
+      transform: translate(0);
+    }
+  }
+  
+  .brutalist-input:focus {
+    animation: focus-pulse 4s cubic-bezier(0.25, 0.8, 0.25, 1) infinite,
+      glitch 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) infinite;
+  }
+  
+  .brutalist-input:focus::after {
+    content: "";
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: white;
+    z-index: -1;
+  }
+  
+  .brutalist-input:focus::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: black;
+    z-index: -2;
+    clip-path: inset(0 100% 0 0);
+    animation: glitch-slice 4s steps(2, end) infinite;
+  }
+  
+  @keyframes glitch-slice {
+    0% {
+      clip-path: inset(0 100% 0 0);
+    }
+    10% {
+      clip-path: inset(0 5% 0 0);
+    }
+    20% {
+      clip-path: inset(0 80% 0 0);
+    }
+    30% {
+      clip-path: inset(0 10% 0 0);
+    }
+    40% {
+      clip-path: inset(0 50% 0 0);
+    }
+    50% {
+      clip-path: inset(0 30% 0 0);
+    }
+    60% {
+      clip-path: inset(0 70% 0 0);
+    }
+    70% {
+      clip-path: inset(0 15% 0 0);
+    }
+    80% {
+      clip-path: inset(0 90% 0 0);
+    }
+    90% {
+      clip-path: inset(0 5% 0 0);
+    }
+    100% {
+      clip-path: inset(0 100% 0 0);
+    }
+  }
+  
+  .smooth-type {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .smooth-type:focus::before {
+    opacity: 1;
+    animation: type-gradient 2s linear infinite;
+  }
+  
+  @keyframes type-gradient {
+    0% {
+      background-position: 300px 0;
+    }
+    100% {
+      background-position: 0 0;
+    }
+  }
+  
+  .brutalist-input::placeholder {
+    color: #888;
+    transition: color 0.3s ease;
+  }
+  
+  .brutalist-input:focus::placeholder {
+    color: transparent;
+  }
+  
+  .brutalist-input:focus {
+    animation: focus-pulse 4s cubic-bezier(0.25, 0.8, 0.25, 1) infinite;
+  }
+  
+  @keyframes focus-pulse {
+    0%,
+    100% {
+      border-color: var(--darkblue-color);
+    }
+    50% {
+      border-color: var(--blue-color);
+    }
+  }
+    /* End of -> input text css for first modal  */
