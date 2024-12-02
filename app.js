@@ -1,5 +1,6 @@
 /*-------------------------------- Constants --------------------------------*/
-const startpage = document.querySelector('.welcome-screen');
+const welcomeScreen = document.querySelector('.welcome-screen');
+const startGameBtn = welcomeScreen.querySelector('.start-game-btn');
 const nameEntryDialog = document.querySelector('.name-entry-dialog');
 const submitNameButton = nameEntryDialog.querySelector('.submit-names-btn');//Next submit button
 const selectCategoryDialog = document.querySelector('.select-category-dialog');
@@ -11,7 +12,6 @@ const selectLevelBackButton = selectLevelDialog.querySelector('.back-btn');
 const levelMessage = selectLevelDialog.querySelector('.level-message'); //To print the username with grid
 const gameRulesDialog = document.querySelector('.game-rule-dialog');
 const gameBoard = document.querySelector('.game-board');
-
 //Images
 //used https://www.canva.com
 const levelImages = {
@@ -136,11 +136,11 @@ const periodicTableImages = [
     'images/PeriodicTable/32.png',
 ];
 //Sounds
-//used -> https://www.pond5.com/search?kw=count-1-2-3&media=sfx
-const buttonSound = new Audio('sounds/ButtonSound.m4a');
-const gameOver = new Audio('sounds/GameOverVoice.m4a'); 
-const startTimersound = new Audio('sounds/clockTicking.m4a'); 
-const taDaSound = new Audio('sounds/ta-da.m4a'); 
+//used -> https://pixabay.com/sound-effectsC
+const buttonSound = new Audio('sounds/mouse-click.mp3');
+const gameOver = new Audio('sounds/game-over.mp3'); 
+const startTimersound = new Audio('sounds/ticking-clock.mp3'); 
+const claps = new Audio('sounds/claps.mp3'); 
 
 /*---------------------------- Variables (state) ----------------------------*/
 let selectCategory='';
@@ -293,12 +293,11 @@ function endGame(isWin, reason = '') {
 
     if (isWin) {
         startTimersound.pause(true);
-        taDaSound.play();
+        claps.play();
         modal.innerHTML = `<h2>Congratulations! You Win! 🎉</h2>`;
     } else {
         let message;
         if (reason === 'timeout') {
-            startTimersound.pause(true);
             gameOver.play();
             message = 'Sorry You Loss, your time is out! ⏳';
         } else if (reason === 'mismatch') {
@@ -333,7 +332,7 @@ function startGame() {
     console.log(`Game started with ${selectCategory} category and ${gridSize}x${gridSize} grid.`);
 
     const cards = document.querySelectorAll('.card');
-    const startSound = new Audio('sounds/countDown.m4a'); //get the sound
+    const startSound = new Audio('sounds/countDown.mp3'); //get the sound
     startSound.play(); //play the sound
 
     // Reveal all cards for 3 seconds
@@ -350,25 +349,25 @@ function startGame() {
 }
 
 /*----------------------------- Event Listeners -----------------------------*/
-nameEntryDialog.showModal();
+// Event listener for submitting the player's name
 submitNameButton.addEventListener('click', (event) => {
-    // console.log('Button clicked!'); for test
-    playButtonSound(); 
+    playButtonSound();
     const playerNameInput = nameEntryDialog.querySelector('#player');
     const playerName = playerNameInput.value.trim();
-        nameEntryDialog.close();
-        // console.log(submitNameButton); for test 
-        categoryDialogTitle.textContent = `Hi, ${playerName}🥰!`;
-        selectCategoryDialog.showModal();
+
+        nameEntryDialog.style.display = 'none'; // Hide name entry dialog
+        categoryDialogTitle.textContent = `Hi, ${playerName}🥰!`; // Greet player
+        selectCategoryDialog.style.display = 'block'; // Show category dialog
 
 });
+
 //To get the user selection of the categry 
 categoryButtons.forEach((button =>{
     button.addEventListener('click',(event =>{
         playButtonSound(); 
 selectCategory = button.textContent.trim();
-// console.log(`${selectCategory}`); //For test
 selectCategoryDialog.close();
+selectCategoryDialog.style.display = 'none'; // Hide name entry dialog
 const gameBoard = document.querySelector('.game-board');
         let categoryColor;
 if (selectCategory === 'Animals') {
@@ -393,10 +392,9 @@ selectLevelDialog.showModal();
 
 
 levelButtons.forEach((button)=>{
+    
     button.addEventListener('click',(event=>{
         selectedGrid = button.textContent.trim();
-        
-        // console.log(selectedGrid) //for test
         selectLevelDialog.close();
 
         const gameRuleTitle =gameRulesDialog.querySelector('.rule-title');
@@ -411,9 +409,17 @@ startGameButton.addEventListener('click', () => {
     startGame(); // I will call startgame function to start the game 
 });
 
+// Event listener for starting the game from the welcome screen
+startGameBtn.addEventListener('click', () => {
+    playButtonSound(); // Play button sound
+    welcomeScreen.style.display = 'none'; // Hide welcome screen
+    nameEntryDialog.style.display = 'block'; // Show name entry dialog
+});
+
 
 selectLevelBackButton.addEventListener('click', () => {
     selectLevelDialog.close(); 
     selectCategoryDialog.showModal(); 
 });
+
 

@@ -15,23 +15,31 @@
         <span class="wrong-matches"></span> 
         <span class="correct-matches"></span>
     </div>
+    <!-- <div class="reset-button">
+        <img src="" alt="Reset button"/>
+</div> -->
     </div>
 </header>
+ <!-- Welcome Screen -->
+ <dialog class="welcome-screen">
+    <h1>The Memory Game</h1>
+    <div class="btn-container">
+    <button class="start-game-btn">Let's Play!</button>
+    </div>
+</dialog>
   <!-- Adding model for the begining of the game-->
     <dialog class="name-entry-dialog">
-        <form>
         <h2 class="dialog-title">Welcome to the Memory Game</h2>
         <input type="text" name="player" id="player" placeholder="Enter your name"    class="brutalist-input smooth-type"
         maxlength="15" required>
         <div class="btn-container">
-        <button type="button" class="submit-names-btn">Let's Play !</button>
+        <button type="button" class="submit-names-btn">Next</button>
         </div> 
-        </form>
     </dialog>
 
     <dialog class="select-category-dialog">
-        <form>
         <h2 class="category-dialog-title"></h2>
+        <h1>select category</h1>
         <div class="category-btn-container">
             <button type="button" class="category-btn">Animals
                 <img src="images/animals.png" alt="animals image" />
@@ -43,10 +51,8 @@
                 <img src="images/periodic-table.png" alt="Periodic table image"/>
             </button>
         </div>
-    </form>
     </dialog>
     <dialog class="select-level-dialog">
-        <form>
         <h3 class="level-message"></h3>
         <div class="level-btn-container">
             <button type="button" class="level-btn">4x4
@@ -60,13 +66,11 @@
             </button>
         </div>
         
-    </form>
     <div class="backbtn-container">
         <button type="button" class="back-btn">Back</button>
     </div>
     </dialog>
     <dialog class="game-rule-dialog">
-        <form>
         <h3 class="rule-title"></h3>
         <div class="level-btn-container">
             <ul>
@@ -77,7 +81,6 @@
             </ul>
         </div>
         
-    </form>
     <div class="backbtn-container">
         <button type="button" class="back-btn">Start Game</button>
     </div>

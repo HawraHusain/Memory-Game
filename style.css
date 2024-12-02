@@ -1,14 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Doto:wght@100..900&family=Geist+Mono:wght@100..900&family=Oswald:wght@200..700&family=Spicy+Rice&display=swap');
 * {
     box-sizing: border-box;
 }
 
 body {
-    background-image: url(images/Background.jpg);
+    background-image: url(images/Yellow\ Blue\ Playful\ Illustration\ The\ Memory\ Game\ Presentation-2.png);
     background-size: cover;
-    background-position: 50% 50%;
+    background-repeat: no-repeat;
     font-family: 'Roboto', sans-serif;
     height: 100%;
     margin: 0;
+    font-family: "Spicy Rice", serif;
 }
 :root{
     /* colors */
@@ -21,98 +23,114 @@ body {
     --green-color: #C9E9D2;
     --darkgreen-color:#7D9D9C;
 }
-/* Dialog position and border */
-dialog{
-    border: 5px solid var(--blue-color);
-    border-radius: 30px;
-    position: relative;
-    justify-content: center;
-    padding: 10em;
-    animation: changeBorderColor 6s infinite;
+/* Style for the welcome screen */
+.welcome-screen {
+    background-image: url(images/Yellow\ Blue\ Playful\ Illustration\ The\ Memory\ Game\ Presentation.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: block;
+    margin-top: 100px;    
+}
+.welcome-screen h1 {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    color: var(--darkblue-color);
+}
 
+/* name entry  css*/
+.name-entry-dialog {
+    background-image: url(images/NameEntryBk.png);
+    display: none;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-top: 100px;
 }
-/* boarder color changing */
-@keyframes changeBorderColor {
-    0% { border-color: var(--blue-color); }
-    16% { border-color: var(--darkblue-color); }
-    33% { border-color: var(--pink-color); }
-    50% { border-color: var(--darkpink-color); }
-    66% { border-color: var(--green-color); }
-    83% { border-color: var(--darkgreen-color); }
-    100% { border-color: var(--blue-color); }
+input {
+  border: 2px solid --blue-color;
+  border-radius: 5px;
+  font-size: 2rem;
+  color: var(--darkblue-color);
+  font-weight: 800;
 }
-/* For backdrop shadow */
-dialog::backdrop {
-    background-color: rgba(0, 0, 0, 0.5);
-}
-/* Dialog color*/
-.name-entry-dialog , .select-category-dialog{
-    justify-content: center;
-    background-color: var(--lightgrey-color);
-}
-/* Form in the dialog  */
-.name-entry-dialog form , .select-category-dialog form{
-    display: grid;
-    gap: 15px;
-    justify-content: center;
-    align-items: center;
-    padding: 50px 70px ;
+
+/* select category dialog css */
+ .select-category-dialog{
+    background-image: url(images/Yellow\ Blue\ Playful\ Illustration\ The\ Memory\ Game\ Presentation.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: none;
+    text-align: center;
+    margin-top: 50px;
+    
 }
 /* Dialog title */
 .dialog-title ,.category-dialog-title {
-    font-size: 1.8rem;
+    font-size: 2rem;
     font-weight: 700;
     color:var(--darkblue-color);
     text-align: center;
 }
-/* h3  */
+
+/* Shared  */
 h3 {
-    font-size: 1.5rem;
+    font-size: 3rem;
     color: var(--darkblue-color);
     text-align: center;
 }
-/* input of the form */
-input {
-    padding: 10px;
-    border: 2px solid --blue-color;
-    border-radius: 5px;
-    font-size: 1rem;
-    color: var(--darkblue-color);
-    font-weight: 800;
+dialog{
+  border: 5px solid var(--blue-color);
+  border-radius: 30px;
+  position: relative;
+  justify-content: center;
+  padding: 10em 15em;
+  animation: changeBorderColor 6s infinite;
+}
+@keyframes changeBorderColor {
+  0% { border-color: var(--blue-color); }
+  16% { border-color: var(--darkblue-color); }
+  33% { border-color: var(--pink-color); }
+  50% { border-color: var(--darkpink-color); }
+  66% { border-color: var(--green-color); }
+  83% { border-color: var(--darkgreen-color); }
+  100% { border-color: var(--blue-color); }
+}
+dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
 }
 .btn-container {
     display: flex;
     justify-content: center;
     align-items: center;
 }
-/* start of Change Background for button of submit name  */
+@keyframes changeBackground {
+  0% { background-color: var(--blue-color); }
+  16% { background-color: var(--darkblue-color); }
+  33% { background-color: var(--pink-color); }
+  50% { background-color: var(--darkpink-color); }
+  66% { background-color: var(--green-color); }
+  83% { background-color: var(--darkgreen-color); }
+  100% { background-color: var(--blue-color); }
+}
 
-.submit-names-btn {
+/* submit button css */
+.submit-names-btn ,.start-game-btn{
     background-color: var(--blue-color);
     color: #888;
     border: none;
     padding: 15px 20px;
-    font-size: 16px;
+    font-size: 18px;
     border-radius: 5px;
     cursor: pointer;
     animation: changeBackground 6s infinite;
     margin-top: 30px;
     font-weight: 800;
 }
-/* change background colors */
-@keyframes changeBackground {
-    0% { background-color: var(--blue-color); }
-    16% { background-color: var(--darkblue-color); }
-    33% { background-color: var(--pink-color); }
-    50% { background-color: var(--darkpink-color); }
-    66% { background-color: var(--green-color); }
-    83% { background-color: var(--darkgreen-color); }
-    100% { background-color: var(--blue-color); }
-}
-/* End of Change Background for button of submit name  */
 
-/* Start of category button and card  */
 
+/* category button and card  */
 .category-btn {
     border: none;
     border-radius: 5px;
@@ -144,37 +162,30 @@ input {
     height: 50px;
     margin-left: 10px;
 }
-/* End of category button and card  */
-
+/* set select level background */
 .select-level-dialog {
-    gap: 15px;
-    justify-content: center;
     align-items: center;
-    padding: 15rem  ;
+    justify-content: center;
+    text-align: center;
 }
 .select-level-dialog.animals {
     background: url('images/CategoryBackground/animals-bg.png') no-repeat center center;
     background-size: cover;
 }
-
 .select-level-dialog.flags {
     background: url('images/CategoryBackground/flags-bg.png') no-repeat center center;
     background-size: cover;
 }
-
 .select-level-dialog.periodic-table {
     background: url('images/CategoryBackground/periodic-table-bg.png') no-repeat center center;
     background-size: cover;
 }
+/* level select buttons */
 .level-btn-container{
     gap:20px;
     display: flex;
     justify-content: center;
     align-items: center;
-}
-.li-text{
-    font-size: 20px;
-    color: slategray;
 }
 .level-btn img {
     width: 120px;
@@ -193,23 +204,7 @@ input {
     justify-content: center;
     background: none;
 }
-.backbtn-container{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 20px;
-}
-.back-btn{
-justify-content: center;
-align-items: center;
-display: flex;
-font-size: 1rem;
-font-weight: 500;
-color: var(--white-color);
-background-color: var(--darkgreen-color);
-width: 100px;
-height: 50px;
-}
+
 /* Responsive styling */
 /* Mobile */
 @media screen and (max-width: 640px) {
@@ -233,34 +228,28 @@ padding: 10rem;
     }
 }
 
-
-
 .dialog-title, .rule-title {
     text-align: center;
 }
-
+/* Game board css + cards  */
 .game-board-container {
     display: flex;
     justify-content: center;
     align-items: center; 
-    margin: 50px; 
+    margin: 10px; 
 }
-
 .game-board {
     display: grid;
     gap: 10px;
 }
-
 .game-board.grid-4 {
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(4, 1fr);
 }
-
 .game-board.grid-6 {
     grid-template-columns: repeat(6, 1fr);
     grid-template-rows: repeat(6, 1fr);
 }
-
 .game-board.grid-8 {
     grid-template-columns: repeat(8, 1fr);
     grid-template-rows: repeat(8, 1fr);
@@ -269,12 +258,11 @@ padding: 10rem;
     width: 100px; 
     height: 100px; 
     position: relative;
-    perspective: 1000px; 
     cursor: pointer;
     transform-style: preserve-3d;
     transition: transform 0.5s ease-in-out;
-}
 
+}
 .card-front,
 .card-back {
     position: absolute;
@@ -282,33 +270,62 @@ padding: 10rem;
     height: 100%;
     backface-visibility: hidden;
 }
-
 .card-front {
     background-size: contain; 
     background-position: center; 
     background-repeat: no-repeat; 
     transform: rotateY(180deg);
 }
-
 .card-back {
-    background-color: var(--category-color, var(--darkpink-color)); /* Default if not set */
     transform: rotateY(0deg);
-    font-size: 2rem;
+    font-size: 3rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    color: var(--darkblue-color);
+    color: var(--category-color, var(--darkblue-color));
     border-radius: 25px;
+    background-color: var(--white-color);
 }
-
 .card.flipped .card-front {
     transform: rotateY(0);
 }
-
 .card.flipped .card-back {
     transform: rotateY(180deg);
 }
-
+/* Rule dialog css */
+.game-rule-dialog{
+  background-image: url(images/6.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.li-text{
+  font-size: 25px;
+  color: black;
+}
+.backbtn-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.back-btn{
+background-color: var(--blue-color);
+  color: #888;
+  border: none;
+  padding: 15px 20px;
+  font-size: 18px;
+  border-radius: 5px;
+  cursor: pointer;
+  animation: changeBackground 6s infinite;
+  font-weight: 800;
+}
+/* Game info css  */
 .game-info {
     display: flex;
     flex-direction: column;
@@ -319,7 +336,6 @@ padding: 10rem;
     width: auto;
     padding: 10px;
 }
-
 .timer {
     text-align: center;
     font-size: 25px;
@@ -333,7 +349,6 @@ padding: 10rem;
     justify-content: center;
     align-items: center;
     gap: 30px;
-    
 }
 .wrong-matches{
     font-weight: bold;
@@ -345,7 +360,7 @@ padding: 10rem;
     color: var(--darkgreen-color);
     font-size: 20px; 
 }
-/* Start of-> End game modal */
+/*End game modal */
 .end-game-modal {
     position: fixed;
     top: 50%;
@@ -359,13 +374,11 @@ padding: 10rem;
     animation: changeBorderColor 6s infinite;
 
 }
-
 .end-game-modal h2 {
     margin-bottom: 20px;
     font-size: 1.5rem;
     color: black;
 }
-
 .end-game-modal button {
     padding: 10px 20px;
     font-size: 1rem;
@@ -377,9 +390,8 @@ padding: 10rem;
     animation: changeBackground 6s infinite;
 
 }
-/* End of -> End game modal */
 
-  /*Start of -> input text css for first modal  */
+  /*input text css for first modal  */
   /* Used : https://uiverse.io/0xnihilism/calm-baboon-55 */
   .brutalist-input {
     width: 100%;
@@ -524,4 +536,3 @@ padding: 10rem;
       border-color: var(--blue-color);
     }
   }
-    /* End of -> input text css for first modal  */
