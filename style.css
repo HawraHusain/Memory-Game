@@ -11,6 +11,8 @@ body {
     height: 100%;
     margin: 0;
     font-family: "Spicy Rice", serif;
+    background-attachment: fixed;
+
 }
 :root{
     /* colors */
@@ -214,12 +216,21 @@ dialog::backdrop {
     .select-level-dialog {
 padding: 10rem;
     }
+    .game-board {
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: auto;
+  }
+  
 }
 /* Tablet */
 @media screen and (max-width: 940px) {
     input {
         width: 100%;
     }
+    .game-board {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+  }
 }
 /* Desktop */
 @media screen and (max-width: 1440px) {
@@ -239,8 +250,8 @@ padding: 10rem;
     margin: 10px; 
 }
 .game-board {
-    display: grid;
-    gap: 10px;
+  display: grid;
+  gap: 10px;
 }
 .game-board.grid-4 {
     grid-template-columns: repeat(4, 1fr);
@@ -261,7 +272,6 @@ padding: 10rem;
     cursor: pointer;
     transform-style: preserve-3d;
     transition: transform 0.5s ease-in-out;
-
 }
 .card-front,
 .card-back {
@@ -362,11 +372,14 @@ background-color: var(--blue-color);
 }
 /*End game modal */
 .end-game-modal {
+  background-image: url(images/5.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: white;
     border: 5px solid #ccc;
     border-radius: 10px;
     text-align: center;

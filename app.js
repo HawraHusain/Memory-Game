@@ -136,11 +136,13 @@ const periodicTableImages = [
     'images/PeriodicTable/32.png',
 ];
 //Sounds
-//used -> https://pixabay.com/sound-effectsC
+//used -> https://pixabay.com/sound-effects
 const buttonSound = new Audio('sounds/mouse-click.mp3');
 const gameOver = new Audio('sounds/game-over.mp3'); 
 const startTimersound = new Audio('sounds/ticking-clock.mp3'); 
 const claps = new Audio('sounds/claps.mp3'); 
+const backgroundSound = new Audio('sounds/backgroundSound.mp3'); 
+
 
 /*---------------------------- Variables (state) ----------------------------*/
 let selectCategory='';
@@ -314,12 +316,20 @@ function endGame(isWin, reason = '') {
 
     const playAgainButton = document.createElement('button');
     playAgainButton.textContent = 'Play Again';
-    playAgainButton.addEventListener('click', () => location.reload()); // Reload the game
-
+    playAgainButton.addEventListener('click', () => {
+        resetSounds(); 
+        location.reload(); 
+    });
     modal.appendChild(playAgainButton);
     document.body.appendChild(modal);
 }
-
+function resetSounds() {
+    buttonSound.currentTime = 0;
+    gameOver.currentTime = 0;
+    startTimersound.currentTime = 0;
+    claps.currentTime = 0;
+    backgroundSound.currentTime = 0;
+}
 //Start the game 
 function startGame() {
     const gridSize = selectedGrid === '4x4' ? 4 : selectedGrid === '6x6' ? 6 : 8;
@@ -399,19 +409,22 @@ levelButtons.forEach((button)=>{
 
         const gameRuleTitle =gameRulesDialog.querySelector('.rule-title');
 
-         gameRuleTitle.textContent = `Rules for ${selectCategory}(${selectedGrid})`;
+         gameRuleTitle.textContent = `How to play matching ${selectCategory}(${selectedGrid})`;
         gameRulesDialog.showModal();
     }))
 })
 const startGameButton = gameRulesDialog.querySelector('.back-btn');
 startGameButton.addEventListener('click', () => {
     gameRulesDialog.close(); // to close the rules dialog
+    backgroundSound.pause();
     startGame(); // I will call startgame function to start the game 
 });
 
 // Event listener for starting the game from the welcome screen
 startGameBtn.addEventListener('click', () => {
+    resetSounds();
     playButtonSound(); // Play button sound
+    backgroundSound.play();
     welcomeScreen.style.display = 'none'; // Hide welcome screen
     nameEntryDialog.style.display = 'block'; // Show name entry dialog
 });
@@ -421,5 +434,3 @@ selectLevelBackButton.addEventListener('click', () => {
     selectLevelDialog.close(); 
     selectCategoryDialog.showModal(); 
 });
-
-
