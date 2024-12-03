@@ -7,7 +7,7 @@
 
 ## Getting Started
 
-### play the Game 
+### Play the Game 
 [The Memory Game Link]()
 
 ### How to Play 
@@ -25,19 +25,22 @@
     - Flip two cards at a time. Match all pairs before the timer runs out.
     - Avoid mismatches to prevent game over.
 
-## planning Materials 
+## Planning Materials 
 
 [View Planning Document](https://trello.com/b/UcVTFYqD/memory-game)
 
 ----------
 
 ## Attributuions 
+
 - [Sound Effects](https://pixabay.com/sound-effec)
 - [Card images](https://www.flaticon.com/packs/wildlife-129)
 - [Backgrounds](https://www.canva.com)
 - [Font](https://fonts.google.com/specimen/Spicy+Rice)
+
 ---------
 ## Technologies Used
+
 ![HTML](https://img.shields.io/badge/-HTML-E34F26?1ogo=html5&logoColor=white&style=flat-square)
 ![CSS](https://img.shields.io/badge/-CSS-1572B6?logo=css3&logoColor-white&style=flat-square)
 ![JavaScript](https://img.shields.io/badge/-JavaScript-F7DF1E?logo=javascript&logoColor=black&style=flat-square)
@@ -169,13 +172,22 @@ levelButtons.forEach((button) => {
 user will view modal that contains the rules of the game and when clicks on start game here the game will start 
 
 # Game story 
-The game will start when user clicks on "Start Game" after 3 second the cards will flip
+The game will start when user clicks on "Start Game" after 5 second the cards will flip
 ```javascript
 function startGame() {
     const gridSize = selectedGrid === '4x4' ? 4 : selectedGrid === '6x6' ? 6 : 8;
     totalPairs = (gridSize * gridSize) / 2;
     generateCards(selectCategory, gridSize);
 
+    timeLeft = gridSize === 4 ? 60 : gridSize === 6 ? 90 : 120;
+
+    resetButton.style.display='block';
+    correctMatche.style.display='block';
+    wrongMatche.style.display='block';
+    wrongMatche.textContent = `Wrong Matches: ${wrongMatches}`;
+    correctMatche.textContent = `Correct Matches: ${correctMatches}`;
+    timerElement.style.display = 'block'; // Show the timer when the game starts
+    timerElement.textContent = `Time: ${timeLeft}s`;
     const gameBoard = document.querySelector('.game-board');
     gameBoard.className = `game-board grid-${gridSize}`;
 
@@ -185,27 +197,25 @@ function startGame() {
     const startSound = new Audio('sounds/countDown.mp3'); //get the sound
     startSound.play(); //play the sound
 
-    // Reveal all cards for 3 seconds
+    // Reveal all cards for 5 seconds
     cards.forEach(card => card.classList.add('flipped'));
 
     setTimeout(() => {
         // Hide all cards after 3 seconds
         cards.forEach(card => card.classList.remove('flipped'));
-
         isGameActive = true; // Allow interaction after initial reveal
         startTimer(); // Start the game timer
          // play sound when start timer
-    }, 3000); // 3000ms = 3 seconds
+    }, 5000); // 5000ms = 5 seconds
 }
+
 ```
-Then the Timer will start to count down for 1 minute 
+Then the Timer will start to count down based on the level selected 
 
 ```javascript
 
 function startTimer() {
-    const timerElement = document.querySelector('.timer');
-    timerElement.style.display = 'block'; // Show the timer when the game starts
-    timerElement.textContent = `Time: ${timeLeft}s`;
+   
     startTimersound.play();
     timer = setInterval(() => {
         timeLeft--;
@@ -219,17 +229,27 @@ function startTimer() {
 }
 
 ```
-There will show the correct matchs and the wrong matchs 
+There will show the correct matchs and the wrong matchs but based on the level selected will be diffrent limit for the wrong matchs
 
 ```javascript 
+function getMismatchLimit(gridSize) { //set the get mismatch limit 
+    if (gridSize === '4x4') {
+        return 6;
+    } else if (gridSize === '6x6') {
+        return 8;
+    } else if (gridSize === '8x8') {
+        return 10;
+    }
+}
 function checkForMatch() {
+    const mismatchLimit = getMismatchLimit(selectedGrid);
     const isMatch =
         firstCard.querySelector('.card-front').style.backgroundImage ===
         secondCard.querySelector('.card-front').style.backgroundImage;
 
     if (isMatch) {
         correctMatches++;
-        document.querySelector('.correct-matches').textContent = `Correct Matches: ${correctMatches}`;
+        correctMatche.textContent = `Correct Matches: ${correctMatches}`;
         firstCard.classList.add('matched');
         secondCard.classList.add('matched');
         resetBoard();
@@ -239,30 +259,51 @@ function checkForMatch() {
         }
     } else {
         wrongMatches++;
-        document.querySelector('.wrong-matches').textContent = `Wrong Matches: ${wrongMatches}`;
+        wrongMatche.textContent = `Wrong Matches: ${wrongMatches}`;
         setTimeout(() => {
             firstCard.classList.remove('flipped');
             secondCard.classList.remove('flipped');
             resetBoard();
 
-            if (wrongMatches >= 6) {
+            if (wrongMatches >= mismatchLimit) { //get the limit of mismatch 
                 endGame(false ,'mismatch'); // mismatch game over
             }
         }, 1000);
     }
 }
 ```
-## How will loss the game 
 
-1. If user matchs 6 wrong cards.
-2. If the time out.
+## Reset Button 
+There is a resert button to resert the game any time 
 
-## How will win the game
+![Reset button](images/resetButtonImg.png)
 
-1. If user matches the all the cards
+```javascript
+resetButton.addEventListener('click', () => {
+    resetSounds(); 
+    playButtonSound(); 
+    location.reload(); 
+});
+```
+
+## Conditions for Losing the Game
+
+1. For a 4x4 grid, the maximum allowed incorrect matches is 6.
+2. For a 6x6 grid, the maximum allowed incorrect matches is 8.
+3. For an 8x8 grid, the maximum allowed incorrect matches is 10.
+4. For a 4x4 grid, the time limit is 1 minute.
+5. For a 6x6 grid, the time limit is 2 minutes.
+6. For an 8x8 grid, the time limit is 3 minutes.
+
+
+## Conditions for Winning the Game
+
+1. The user wins by matching all the cards before the time runs out.
 
 ## Future Improvements 
 - Add multiplayer.
 - Add more categories and levels.
+- Hide the cards when they match.
+- Add animation shacking when the match is wrong.
 
 

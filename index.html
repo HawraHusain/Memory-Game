@@ -15,9 +15,9 @@
         <span class="wrong-matches"></span> 
         <span class="correct-matches"></span>
     </div>
-    <!-- <div class="reset-button">
-        <img src="" alt="Reset button"/>
-</div> -->
+    <button type="button" class="reset-button">
+        <img src="images/resetButton.png" alt="Reset button"/>
+</button>
     </div>
 </header>
  <!-- Welcome Screen -->
@@ -75,14 +75,14 @@
         <div class="level-btn-container">
             <ul>
                 <li class="li-text">Click "Start Game" to begin.</li>
-                <li class="li-text">You'll have 3 seconds to view the cards before they flip over.</li>
-                <li class="li-text">The timer is set for 1 minute; if time runs out, you lose.</li>
-                <li class="li-text">Making more than 6 mismatches will result in a loss.</li>
+                <li class="li-text">You'll have 5 seconds to view the cards before they flip over.</li>
+                <li class="li-text" id="timer-rule"></li>
+                <li class="li-text" id="mismatch-rule"></li>
             </ul>
         </div>
         
     <div class="backbtn-container">
-        <button type="button" class="back-btn">Start Game</button>
+        <button type="button" class="startgame-btn">Start Game</button>
     </div>
     </dialog>
 

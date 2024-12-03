@@ -8,10 +8,13 @@ const categoryDialogTitle = selectCategoryDialog.querySelector('.category-dialog
 const categoryButtons = selectCategoryDialog.querySelectorAll('.category-btn'); //category buttons
 const selectLevelDialog = document.querySelector('.select-level-dialog');
 const levelButtons = selectLevelDialog.querySelectorAll('.level-btn');
-const selectLevelBackButton = selectLevelDialog.querySelector('.back-btn');
 const levelMessage = selectLevelDialog.querySelector('.level-message'); //To print the username with grid
 const gameRulesDialog = document.querySelector('.game-rule-dialog');
 const gameBoard = document.querySelector('.game-board');
+const wrongMatche=document.querySelector('.wrong-matches');
+const correctMatche =document.querySelector('.correct-matches');
+const timerElement = document.querySelector('.timer');
+
 //Images
 //used https://www.canva.com
 const levelImages = {
@@ -39,7 +42,7 @@ const animalImages =[
     'images/animals/chimp.png',
     'images/animals/crocodile.png',
     'images/animals/deer.png',
-    'images/animals/dolphine.png',
+    'images/animals/dolphin.png',
     'images/animals/elephant.png',
     'images/animals/falcon.png',
     'images/animals/fox.png',
@@ -177,9 +180,7 @@ function updateLevelImages (category){
     })
 }
 function startTimer() {
-    const timerElement = document.querySelector('.timer');
-    timerElement.style.display = 'block'; // Show the timer when the game starts
-    timerElement.textContent = `Time: ${timeLeft}s`;
+   
     startTimersound.play();
     timer = setInterval(() => {
         timeLeft--;
@@ -249,14 +250,24 @@ function handleCardFlip(card) {
     }
 }
 //Test matching cards and wrong cards to end the game 
+function getMismatchLimit(gridSize) { //set the get mismatch limit 
+    if (gridSize === '4x4') {
+        return 6;
+    } else if (gridSize === '6x6') {
+        return 8;
+    } else if (gridSize === '8x8') {
+        return 10;
+    }
+}
 function checkForMatch() {
+    const mismatchLimit = getMismatchLimit(selectedGrid);
     const isMatch =
         firstCard.querySelector('.card-front').style.backgroundImage ===
         secondCard.querySelector('.card-front').style.backgroundImage;
 
     if (isMatch) {
         correctMatches++;
-        document.querySelector('.correct-matches').textContent = `Correct Matches: ${correctMatches}`;
+        correctMatche.textContent = `Correct Matches: ${correctMatches}`;
         firstCard.classList.add('matched');
         secondCard.classList.add('matched');
         resetBoard();
@@ -266,13 +277,13 @@ function checkForMatch() {
         }
     } else {
         wrongMatches++;
-        document.querySelector('.wrong-matches').textContent = `Wrong Matches: ${wrongMatches}`;
+        wrongMatche.textContent = `Wrong Matches: ${wrongMatches}`;
         setTimeout(() => {
             firstCard.classList.remove('flipped');
             secondCard.classList.remove('flipped');
             resetBoard();
 
-            if (wrongMatches >= 6) {
+            if (wrongMatches >= mismatchLimit) { //get the limit of mismatch 
                 endGame(false ,'mismatch'); // mismatch game over
             }
         }, 1000);
@@ -287,42 +298,96 @@ function resetBoard() {
 
 //Show message based on reason of loss or win
 function endGame(isWin, reason = '') {
-    clearInterval(timer); // to stop the timer
+    clearInterval(timer); // Stop the timer
     isGameActive = false;
 
+    // Prepare the game data for the current session
+    const gameData = {
+        win: isWin,
+        reason: reason,
+        timeLeft: timeLeft,
+        wrongMatches: wrongMatches,
+        correctMatches: correctMatches,
+        timestamp: new Date().toISOString() // Store timestamp for each game
+    };
+    
+    // Retrieve the previous game data (if any)
+    let previousGame = JSON.parse(localStorage.getItem('previousGame')) || null;
+
+    // Save the current game data as the latest game
+    localStorage.setItem('previousGame', JSON.stringify(gameData));
+
+    // Show End Game Modal
     const modal = document.createElement('div');
     modal.className = 'end-game-modal';
 
+    // Display win or loss message
     if (isWin) {
-        startTimersound.pause(true);
+        startTimersound.pause();
         claps.play();
         modal.innerHTML = `<h2>Congratulations! You Win! 🎉</h2>`;
     } else {
+        startTimersound.pause();
+        gameOver.play();
         let message;
         if (reason === 'timeout') {
-            gameOver.play();
-            message = 'Sorry You Loss, your time is out! ⏳';
+            message = 'Sorry, You Lost. Time is up! ⏳';
         } else if (reason === 'mismatch') {
-            startTimersound.pause(true);
-            gameOver.play();
-            message = 'Sorry You Loss ,You mismatched too many cards! 😢';
+            message = 'Sorry, You Lost. Too many wrong matches! 😢';
         } else {
-            startTimersound.pause(true);
-            gameOver.play();
             message = 'Game Over! 😢';
         }
         modal.innerHTML = `<h2>${message}</h2>`;
     }
 
+    // If there is a previous game data, compare and show results
+    if (previousGame) {
+        let previousResultsHTML = "<p>Comparison with Previous Game:</p>";
+        
+         // Compare timeLeft
+         if (previousGame.timeLeft < gameData.timeLeft) {
+            previousResultsHTML += `<p><strong>You scored timeliest more than previous time! Great job! ⏱️</strong></p>`;
+        }
+        else if (isWin && previousGame.timeLeft > gameData.timeLeft) {
+            previousResultsHTML += `<p><strong>You scored timeliest more than previous time and you win! Great job! </strong></p>`;
+        }
+
+        // Compare correct matches
+        else if (previousGame.correctMatches < gameData.correctMatches) {
+            previousResultsHTML += `<p><strong>You matched more cards than previous! Great work! </strong></p>`;
+        }
+
+        // Compare wrong matches
+        else if (previousGame.wrongMatches > gameData.wrongMatches) {
+            previousResultsHTML += `<p><strong>You matched fewer wrong cards than previous! Focus! </strong></p>`;
+        }
+
+        // Check for other possible conditions (e.g., game win/loss comparison)
+        else if (previousGame.win !== gameData.win) {
+            previousResultsHTML += `<p><strong>You either won or lost compared to the previous game! ${gameData.win ? 'Well done!' : 'Better luck next time!'}</strong></p>`;
+        }
+        
+        // Additional condition for when no significant difference is found
+        else {
+            previousResultsHTML += `<p><strong>Your performance is similar to the previous game. Keep it up!</strong></p>`;
+        }
+
+        modal.innerHTML += previousResultsHTML;
+    }
+
+    // Add "Play Again" button
     const playAgainButton = document.createElement('button');
     playAgainButton.textContent = 'Play Again';
     playAgainButton.addEventListener('click', () => {
-        resetSounds(); 
-        location.reload(); 
+        resetSounds();
+        location.reload(); // Reload the game
     });
     modal.appendChild(playAgainButton);
+
     document.body.appendChild(modal);
 }
+
+
 function resetSounds() {
     buttonSound.currentTime = 0;
     gameOver.currentTime = 0;
@@ -330,12 +395,22 @@ function resetSounds() {
     claps.currentTime = 0;
     backgroundSound.currentTime = 0;
 }
+
 //Start the game 
 function startGame() {
     const gridSize = selectedGrid === '4x4' ? 4 : selectedGrid === '6x6' ? 6 : 8;
     totalPairs = (gridSize * gridSize) / 2;
     generateCards(selectCategory, gridSize);
 
+    timeLeft = gridSize === 4 ? 60 : gridSize === 6 ? 90 : 120;
+
+    resetButton.style.display='block';
+    correctMatche.style.display='block';
+    wrongMatche.style.display='block';
+    wrongMatche.textContent = `Wrong Matches: ${wrongMatches}`;
+    correctMatche.textContent = `Correct Matches: ${correctMatches}`;
+    timerElement.style.display = 'block'; // Show the timer when the game starts
+    timerElement.textContent = `Time: ${timeLeft}s`;
     const gameBoard = document.querySelector('.game-board');
     gameBoard.className = `game-board grid-${gridSize}`;
 
@@ -345,17 +420,16 @@ function startGame() {
     const startSound = new Audio('sounds/countDown.mp3'); //get the sound
     startSound.play(); //play the sound
 
-    // Reveal all cards for 3 seconds
+    // Reveal all cards for 5 seconds
     cards.forEach(card => card.classList.add('flipped'));
 
     setTimeout(() => {
         // Hide all cards after 3 seconds
         cards.forEach(card => card.classList.remove('flipped'));
-
         isGameActive = true; // Allow interaction after initial reveal
         startTimer(); // Start the game timer
          // play sound when start timer
-    }, 3000); // 3000ms = 3 seconds
+    }, 5000); // 5000ms = 5 seconds
 }
 
 /*----------------------------- Event Listeners -----------------------------*/
@@ -406,14 +480,28 @@ levelButtons.forEach((button)=>{
     button.addEventListener('click',(event=>{
         selectedGrid = button.textContent.trim();
         selectLevelDialog.close();
-
+       
         const gameRuleTitle =gameRulesDialog.querySelector('.rule-title');
+        const mismatchLimit = getMismatchLimit(selectedGrid);
+        const mismatchRule = document.getElementById('mismatch-rule');
+        const timerRuleText = document.getElementById('timer-rule');
 
+       
+         let timeMessage = '';
+         if (selectedGrid === '4x4') {
+             timeMessage = 'The timer is set for 1 minute; if time runs out, you lose.';
+         } else if (selectedGrid === '6x6') {
+             timeMessage = 'The timer is set for 2 minutes; if time runs out, you lose.';
+         } else if (selectedGrid === '8x8') {
+             timeMessage = 'The timer is set for 3 minutes; if time runs out, you lose.';
+         }
+         mismatchRule.textContent = `Making more than ${mismatchLimit} mismatches will result in a loss.`;
          gameRuleTitle.textContent = `How to play matching ${selectCategory}(${selectedGrid})`;
+         timerRuleText.textContent = timeMessage;
         gameRulesDialog.showModal();
     }))
 })
-const startGameButton = gameRulesDialog.querySelector('.back-btn');
+const startGameButton = gameRulesDialog.querySelector('.startgame-btn');
 startGameButton.addEventListener('click', () => {
     gameRulesDialog.close(); // to close the rules dialog
     backgroundSound.pause();
@@ -429,8 +517,18 @@ startGameBtn.addEventListener('click', () => {
     nameEntryDialog.style.display = 'block'; // Show name entry dialog
 });
 
+const selectLevelBackButton = selectLevelDialog.querySelector('.back-btn');
 
 selectLevelBackButton.addEventListener('click', () => {
     selectLevelDialog.close(); 
+    selectCategoryDialog.style.display = 'block';
     selectCategoryDialog.showModal(); 
+});
+
+const resetButton = document.querySelector('.reset-button');
+
+resetButton.addEventListener('click', () => {
+    resetSounds(); 
+    playButtonSound(); 
+    location.reload(); 
 });

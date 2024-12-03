@@ -4,7 +4,7 @@
 }
 
 body {
-    background-image: url(images/Yellow\ Blue\ Playful\ Illustration\ The\ Memory\ Game\ Presentation-2.png);
+    background-image: url(images/bodyBackground.png);
     background-size: cover;
     background-repeat: no-repeat;
     font-family: 'Roboto', sans-serif;
@@ -27,7 +27,7 @@ body {
 }
 /* Style for the welcome screen */
 .welcome-screen {
-    background-image: url(images/Yellow\ Blue\ Playful\ Illustration\ The\ Memory\ Game\ Presentation.png);
+    background-image: url(images/welcomeBk.png);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -42,7 +42,7 @@ body {
 
 /* name entry  css*/
 .name-entry-dialog {
-    background-image: url(images/NameEntryBk.png);
+    background-image: url(images/nameEntryBk.png);
     display: none;
     background-size: cover;
     background-repeat: no-repeat;
@@ -59,7 +59,7 @@ input {
 
 /* select category dialog css */
  .select-category-dialog{
-    background-image: url(images/Yellow\ Blue\ Playful\ Illustration\ The\ Memory\ Game\ Presentation.png);
+    background-image: url(images/selectCategoryBk.png);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -255,23 +255,30 @@ padding: 10rem;
 }
 .game-board.grid-4 {
     grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(4, 1fr);
 }
 .game-board.grid-6 {
     grid-template-columns: repeat(6, 1fr);
-    grid-template-rows: repeat(6, 1fr);
 }
 .game-board.grid-8 {
     grid-template-columns: repeat(8, 1fr);
-    grid-template-rows: repeat(8, 1fr);
 }
 .card {
-    width: 100px; 
-    height: 100px; 
     position: relative;
     cursor: pointer;
     transform-style: preserve-3d;
     transition: transform 0.5s ease-in-out;
+}
+.game-board.grid-4 .card{
+  width: 130px; 
+  height: 130px; 
+}
+.game-board.grid-6 .card {
+  width: 90px;
+  height: 90px;
+}
+.game-board.grid-8 .card {
+  width: 70px;
+  height: 70px;
 }
 .card-front,
 .card-back {
@@ -304,7 +311,7 @@ padding: 10rem;
 }
 /* Rule dialog css */
 .game-rule-dialog{
-  background-image: url(images/6.png);
+  background-image: url(images/ruleBk.png);
   background-size: cover;
   background-repeat: no-repeat;
   -webkit-background-size: cover;
@@ -313,7 +320,6 @@ padding: 10rem;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  text-align: center;
 }
 .li-text{
   font-size: 25px;
@@ -324,7 +330,7 @@ padding: 10rem;
   justify-content: center;
   align-items: center;
 }
-.back-btn{
+.back-btn , .startgame-btn{
 background-color: var(--blue-color);
   color: #888;
   border: none;
@@ -341,10 +347,7 @@ background-color: var(--blue-color);
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 15px;  
     margin-top: 20px;
-    width: auto;
-    padding: 10px;
 }
 .timer {
     text-align: center;
@@ -359,20 +362,23 @@ background-color: var(--blue-color);
     justify-content: center;
     align-items: center;
     gap: 30px;
+    margin-bottom: 30px;
 }
 .wrong-matches{
     font-weight: bold;
     color: rgb(191, 88, 88);
     font-size: 20px;
+    display: none;
 }
 .correct-matches{
     font-weight: bold;
     color: var(--darkgreen-color);
     font-size: 20px; 
+    display: none;
 }
 /*End game modal */
 .end-game-modal {
-  background-image: url(images/5.png);
+  background-image: url(images/blueBackground2.png);
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -383,7 +389,7 @@ background-color: var(--blue-color);
     border: 5px solid #ccc;
     border-radius: 10px;
     text-align: center;
-    padding: 10rem  ;
+    padding: 11rem 10rem ;
     animation: changeBorderColor 6s infinite;
 
 }
@@ -549,3 +555,20 @@ background-color: var(--blue-color);
       border-color: var(--blue-color);
     }
   }
+  /* Reset button */
+.reset-button img{
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+}
+.reset-button {
+  background: none;
+  border: none; 
+  padding: 0; 
+  cursor: pointer; 
+  position: absolute;
+  top: 10%;
+  right: 20%;
+  display: none;
+
+}
