@@ -8,7 +8,7 @@
 ## Getting Started
 
 ### Play the Game 
-[The Memory Game Link]()
+[The Memory Game Link](https://hawrahusain.github.io/Memory-Game/)
 
 ### How to Play 
 1. Start the Game:
